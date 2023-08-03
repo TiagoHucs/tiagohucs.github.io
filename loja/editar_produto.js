@@ -34,13 +34,13 @@ function loadItemList() {
           itemList.innerHTML += `
           <td>${item.material.nome}</td>
           <td>${item.quantidade} ${item.material.unidadeMedida}</td>
-          <td><div class="btn btn-sm btn-danger" onclick="removeMaterial(${item.id})">Excluir</div></td>
+          <td><div class="btn btn-sm btn-dark" onclick="removeMaterial(${item.id})">Excluir</div></td>
         `;
             custo += item.quantidade * item.material.precoCusto;
         });
     }
 
-    document.getElementById('custo').innerText = custo;
+    document.getElementById('custo').innerText = Util.convertReal(custo);
 }
 
 function removeMaterial(idProcurado){

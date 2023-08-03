@@ -44,7 +44,7 @@ function loadList() {
           <td>${material.nome}</td>
           <td>R$ ${material.precoCusto}</td>
           <td>${material.unidadeMedida}</td>
-          <td><div class="btn btn-sm btn-danger" onclick="remove(${material.id})">Excluir</div></td>
+          <td><div class="btn btn-sm btn-dark" onclick="remove(${material.id})">Excluir</div></td>
         `;
       });
     }

@@ -43,8 +43,8 @@ function loadList() {
         newRow.innerHTML = `
           <td>${produto.nome}</td>
           <td>
-          <div class="btn btn-sm btn-warning" onclick="link(${produto.id})">Editar items</div>
-          <div class="btn btn-sm btn-danger" onclick="remove(${produto.id})">Excluir</div>
+          <div class="btn btn-sm btn-dark" onclick="link(${produto.id})">Editar items</div>
+          <div class="btn btn-sm btn-dark" onclick="remove(${produto.id})">Excluir</div>
           </td>
         `;
       });
