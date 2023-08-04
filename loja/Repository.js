@@ -7,7 +7,7 @@ class Repository {
     findAll(){
         const data = localStorage.getItem(this.objectName);
         if (data) {
-            return JSON.parse(data);
+            return Util.ordenar(JSON.parse(data));
         }
         return [];
     };

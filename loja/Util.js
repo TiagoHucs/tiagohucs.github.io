@@ -35,6 +35,16 @@ class Util {
     
     }
 
+    static ordenar(array){
+
+        function compararPorNome(a, b) {
+            return a.nome.localeCompare(b.nome);
+        }
+
+        array.sort(compararPorNome);
+        return array;
+    }
+
 
 }
 
