@@ -7,7 +7,7 @@ function init() {
     const id = urlParams.get('id');
 
     produto = produtoRepository.findOne(id)
-    document.getElementById('title').innerText = produto.nome;
+    document.getElementById('title').innerText = 'Produto: ' + produto.nome;
     materiais = materialRepository.findAll();
 
 }

@@ -8,7 +8,18 @@
     <!-- Incluindo o CSS do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   </head>
-
+  <style>
+    body{
+      background-image: url("ph_back.jpeg");
+      background-size: 200px 150px; /* Largura x Altura */
+    }
+    .card{
+      height: 100%;
+    }
+    .btn{
+      margin: 5px;
+    }
+  </style>
   <body>
 
     <div class="container mt-5">
@@ -23,20 +34,61 @@
       </div>
       <hr>
 
+      <div class="row">
+        <div class="col">
 
-          <div class="mb-3">
-            <label for="preco_custo">Adicionar material:</label>
-            <div class="input-group">
+          <div class="card">
+            <div class="card-body">
+              <h6>Cadastro de material neste produto</h6>
+              <hr>
               <select id="materiaisSelect" class="btn btn-dark form-control" required onchange="selecionarOpcao()">
-                  <!-- A lista de materiais cadastrados será exibida aqui -->
-              </select>
-              <input type="number" step="0.01" min="0" class="form-control" id="quantidade" required>
-              <input type="text" class="form-control" id="showMedida" value="Kilo" disabled>
-            </div>
-          </div>
-          <div style="text-align: right;">
-            <button class="btn btn-dark" onclick="addMaterial()">Cadastrar</button>
-          </div>
+                <!-- A lista de materiais cadastrados será exibida aqui -->
+            </select>
+              <div class="input-group">
+
+                <input type="number" step="0.01" min="0" class="form-control" id="quantidade" required>
+                <input type="text" class="form-control" id="showMedida" value="Kilo" disabled>
+              </div>
+        
+              <div style="text-align: right;">
+                <button class="btn btn-dark" onclick="addMaterial()">Cadastrar</button>
+              </div>
+             </div>
+           </div>
+
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h6>Conversor de Peso</h6>
+              <hr>
+
+              <label for="gramInput">Gramas (g):</label>
+              <input class="form-control" type="number" id="gramInput" placeholder="Digite as gramas" oninput="convertToKilos()">
+              
+              <label for="kiloInput">Quilogramas (kg):</label>
+              <input class="form-control" type="number" id="kiloInput" placeholder="Digite os quilogramas" oninput="convertToGrams()"><br>
+             
+              <script>
+                  function convertToGrams() {
+                      const kilos = parseFloat(document.getElementById("kiloInput").value);
+                      const grams = kilos * 1000;
+                      document.getElementById("gramInput").value = isNaN(grams) ? "" : grams.toFixed(2);
+                  }
+          
+                  function convertToKilos() {
+                      const grams = parseFloat(document.getElementById("gramInput").value);
+                      const kilos = grams / 1000;
+                      document.getElementById("kiloInput").value = isNaN(kilos) ? "" : kilos.toFixed(2);
+                  }
+              </script>
+
+             </div>
+           </div>
+        </div>
+      </div>
+     
+
 
 
       <div class="row mt-5">
