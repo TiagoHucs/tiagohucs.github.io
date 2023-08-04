@@ -19,6 +19,11 @@ function save(event) {
     loadList();
 }
 
+function download(){
+    const arrayData = repo.findAll();
+    Util.download(OBJECT_NAME, arrayData);
+}
+
 function remove(id) {
     const item = repo.findOne(id);
     const response = confirmation(`Você tem certeza que deseja excluir o produto ${item.nome}?`);

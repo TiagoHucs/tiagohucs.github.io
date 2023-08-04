@@ -50,6 +50,11 @@ function loadList() {
     }
   }
 
+  function download(){
+    const arrayData = repo.findAll();
+    Util.download(OBJECT_NAME , arrayData);
+}
+
 function confirmation(text) {
     const response = window.confirm(text);
     return response;
