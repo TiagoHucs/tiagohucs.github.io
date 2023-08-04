@@ -31,9 +31,13 @@ function loadItemList() {
         const itemList = document.getElementById('itemList');
         itemList.innerHTML = '';
         items.forEach((item) => {
+
+            const precoCusto = Number(item.material.precoCusto) / item.quantidade;
+
           itemList.innerHTML += `
           <td>${item.material.nome}</td>
           <td>${item.quantidade} ${item.material.unidadeMedida}</td>
+          <td>${Util.convertReal(item.quantidade * item.material.precoCusto)}</td>
           <td><div class="btn btn-sm btn-dark" onclick="removeMaterial(${item.id})">Excluir</div></td>
         `;
             custo += item.quantidade * item.material.precoCusto;
