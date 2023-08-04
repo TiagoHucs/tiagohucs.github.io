@@ -11,16 +11,16 @@ class Util {
           });
     }
 
-    static download(nomeArquivo, conteudoArquivo){
+    static backup(conteudoArquivoM){
         // Criar um Blob com o conteúdo do arquivo
-        const blob = new Blob([JSON.stringify(conteudoArquivo)], { type: 'text/plain' });
+        const blob = new Blob([JSON.stringify(conteudoArquivoM)], { type: 'text/plain' });
   
         // Criar um URL temporário para o Blob
         const url = URL.createObjectURL(blob);
   
         const linkDownload = document.createElement('a');
         linkDownload.href = url;
-        linkDownload.download = nomeArquivo + '.json';
+        linkDownload.download = 'materiais.json';
         linkDownload.style.display = 'none';
   
         // Adicionar o link à página

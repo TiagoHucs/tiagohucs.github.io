@@ -25,6 +25,7 @@
   <div class="row">
     <div id="botoes" class="col-md-12 text-center"></div>
   </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -35,9 +36,18 @@
 
     var botaoMateriais = criaBotao("Materiais","cadastro_materiais.html")
     var botaoProdutos = criaBotao("Produtos","cadastro_produtos.html")
+    var btnBackup = document.createElement("div");
+    btnBackup.innerHTML = 'Backup';
+    btnBackup.classList = "btn btn-dark";
+    btnBackup.addEventListener("click", function() {
+            const arrayData = materialRepository.findAll();
+            Util.backup(arrayData);
+      });
+
 
     document.getElementById("botoes").appendChild(botaoMateriais);
     document.getElementById("botoes").appendChild(botaoProdutos);
+    document.getElementById("botoes").appendChild(btnBackup);
 
     function criaBotao(text,destiny){
       var botao = document.createElement("div");
@@ -49,8 +59,18 @@
       return botao;
     }
 
-  </script>
+    function init() {
+        materialRepository = new Repository('materiais');
+    }
 
+          //ao terminar de carregar a pagina
+      window.addEventListener('DOMContentLoaded', () => {
+          init();
+      });
+
+  </script>
+    <script src="Repository.js"></script>
+    <script src="Util.js"></script>
 
 </body>
 </html>
