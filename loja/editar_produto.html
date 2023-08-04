@@ -7,21 +7,28 @@
     <title>Loja</title>
     <!-- Incluindo o CSS do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
   </head>
-  <style>
-    body{
-      background-image: url("ph_back.jpeg");
-      background-size: 200px 150px; /* Largura x Altura */
-    }
-    .card{
-      height: 100%;
-    }
-    .btn{
-      margin: 5px;
-    }
-  </style>
-  <body>
 
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">PH-velas</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="cadastro_materiais.html">Materiais</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cadastro_produtos.html">produtos</a>
+            </li> 
+          </ul>
+        </div>
+      </div>
+    </nav>
     <div class="container mt-5">
 
       <div class="row">
@@ -41,16 +48,18 @@
             <div class="card-body">
               <h6>Cadastro de material neste produto</h6>
               <hr>
+              <label for="materiaisSelect">Material:</label>
               <select id="materiaisSelect" class="btn btn-dark form-control" required onchange="selecionarOpcao()">
                 <!-- A lista de materiais cadastrados será exibida aqui -->
             </select>
+            <label for="quantidade">Quantidade:</label>
               <div class="input-group">
 
                 <input type="number" step="0.01" min="0" class="form-control" id="quantidade" required>
                 <input type="text" class="form-control" id="showMedida" value="Kilo" disabled>
               </div>
         
-              <div style="text-align: right;">
+              <div class="text-center">
                 <button class="btn btn-dark" onclick="addMaterial()">Cadastrar</button>
               </div>
              </div>
@@ -60,14 +69,14 @@
         <div class="col">
           <div class="card">
             <div class="card-body">
-              <h6>Conversor de Peso</h6>
+              <h6>Conversor de unidade</h6>
               <hr>
 
-              <label for="gramInput">Gramas (g):</label>
-              <input class="form-control" type="number" id="gramInput" placeholder="Digite as gramas" oninput="convertToKilos()">
+              <label for="gramInput">Gramas / Mililitros :</label>
+              <input class="form-control" type="number" id="gramInput" placeholder="Digite" oninput="convertToKilos()">
               
-              <label for="kiloInput">Quilogramas (kg):</label>
-              <input class="form-control" type="number" id="kiloInput" placeholder="Digite os quilogramas" oninput="convertToGrams()"><br>
+              <label for="kiloInput">Quilogramas / Litros :</label>
+              <input class="form-control" type="number" id="kiloInput" placeholder="Digite" oninput="convertToGrams()"><br>
              
               <script>
                   function convertToGrams() {
@@ -80,6 +89,7 @@
                       const grams = parseFloat(document.getElementById("gramInput").value);
                       const kilos = grams / 1000;
                       document.getElementById("kiloInput").value = isNaN(kilos) ? "" : kilos.toFixed(2);
+                      document.getElementById("quantidade").value = isNaN(kilos) ? "" : kilos.toFixed(2);
                   }
               </script>
 
@@ -108,8 +118,6 @@
           </table>
         </div>
       </div>
-      <hr>
-      <button class="btn btn-dark" onclick="Util.redirectHome()">Voltar</button>
     </div>
 
     <!-- Incluindo os scripts do Bootstrap e do jQuery (necessário para algumas funcionalidades do Bootstrap) -->
