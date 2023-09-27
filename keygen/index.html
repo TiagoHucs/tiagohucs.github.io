@@ -12,13 +12,17 @@
 
     <div class="container mt-3">
         <div class="text-center">
-            <h2>Password generator</h2>
-
+            <h2>Sugestão de senha</h2>
+            <h6>versão: 0.1</h6>
+            <hr>
             <label for="password">Sua senha facil de lembrar:</label><br>
-            <input id="password"><br>
+            <input id="password" value="123456"><br>
         
             <label for="site">Site que irá usar a senha:</label><br>
-            <input id="site"><br><br>
+            <input id="site" value="gmail"><br><br>
+
+            <label for="qtdChars">Quantidade de caracteres:</label><br>
+            <input type="number" id="qtdChars"><br><br>
         
             <input type="checkbox" id="needSpecialChars">
             <label for="needSpecialChars">Caracteres especiais</label><br><br>
@@ -31,43 +35,7 @@
         </div>
     </div>
     
-    <script>
-
-        
-
-        function executar() {
-            const password = document.getElementById('password').value;
-            const site = document.getElementById('site').value;
-            const needSpecialChars = document.getElementById('needSpecialChars');
-            const generatedPassword = misturarStrings(password, site);
-            
-            document.getElementById('generatedPassword').value = generatedPassword;
-        }
-
-        function misturarStrings(string1, string2) {
-            const specialChars = ['@','#','$','%','^'];
-            const array1 = string1.split(''); // Divide a primeira string em um array de caracteres
-            const array2 = string2.split(''); // Divide a segunda string em um array de caracteres
-            const resultado = [];
-
-            // Loop para alternar as letras das duas strings
-            while (array1.length > 0 || array2.length > 0) {
-                if (array1.length > 0) {
-                    resultado.push(array1.shift());
-                }
-                if (array2.length > 0) {
-                    resultado.push(array2.shift());
-                }
-                if(needSpecialChars.checked && specialChars.length > 0){
-                    resultado.push(specialChars.shift());
-                }
-            }
-
-            // Une o array resultante em uma única string
-            return resultado.join('');
-        }
-
-    </script>
+    <script src="script.js"></script>
 
 </body>
 
