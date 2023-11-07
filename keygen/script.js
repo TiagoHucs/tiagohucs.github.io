@@ -3,36 +3,22 @@ function executar() {
     const site = document.getElementById('site').value;
     const qtdChars = document.getElementById('qtdChars');
     const needSpecialChars = document.getElementById('needSpecialChars');
-    const generatedPassword = misturarStrings(password, site);
-    
-    document.getElementById('generatedPassword').value = generatedPassword;
+
+    hashPassword(password + site)
+        .then(hash => {
+            const result = hash; //falta limitar e colocar caracteres  
+            document.getElementById('generatedPassword').value = result;
+        })
+    .catch(error => {
+        console.error('Erro ao gerar o hash:', error);
+    });
+
 }
 
-function misturarStrings(string1, string2) {
-    const specialChars = ['@','#','$','%','^'];
-    const array1 = string1.split(''); // Divide a primeira string em um array de caracteres
-    const array2 = string2.split(''); // Divide a segunda string em um array de caracteres
-    const resultado = [];
-
-    // Loop para alternar as letras das duas strings
-    while (array1.length > 0 || array2.length > 0) {
-        if (array1.length > 0) {
-            resultado.push(array1.shift());
-        }
-        if (array2.length > 0) {
-            resultado.push(array2.shift());
-        }
-        if(needSpecialChars.checked && specialChars.length > 0){
-            resultado.push(specialChars.shift());
-        }
-        
+function limitar(qtd, pass){
+    if(qtd != null && qtd != undefined){
+        return pass.substring(0,5);
+    } else{  
+        return pass;
     }
-
-    let finalResult = resultado.join('');
-
-    if(qtdChars.value !== null && qtdChars.value !== ''){
-        finalResult = finalResult.substring(0,qtdChars.value)
-    }
-    
-    return finalResult
 }
