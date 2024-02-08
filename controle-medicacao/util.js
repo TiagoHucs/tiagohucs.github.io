@@ -2,58 +2,47 @@ function goTo(page) {
     window.location.href = page + '.html';
 }
 
-function dateToStr(data) {
-    // Verifica se 'data' é uma instância válida de Date
-    if (data == undefined) {
-        return 'sem registro da ultima dose';
-    }
-    // Obtém a data atual
-    var dataAtual = new Date(data);
-
-    // Obtém os componentes da data
-    var dia = adicionaZero(dataAtual.getDate());
-    var mes = adicionaZero(dataAtual.getMonth() + 1); // Os meses são baseados em zero
-    var ano = dataAtual.getFullYear();
-    var horas = adicionaZero(dataAtual.getHours());
-    var minutos = adicionaZero(dataAtual.getMinutes());
-    var segundos = adicionaZero(dataAtual.getSeconds());
-
-    // Formata a data no formato desejado
-    var dataFormatada = dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos + ':' + segundos;
-
-    // Exibe a data formatada
-    return dataFormatada;
+// Função para converter uma data para milissegundos
+function dateToMilliseconds(date) {
+    return date.getTime();
 }
 
-// Função para adicionar um zero à esquerda, se necessário
-function adicionaZero(numero) {
-    return numero < 10 ? '0' + numero : numero;
-}
-
-// Função para calcular a diferença de tempo entre duas datas
-function diff(dataInicio, dataFim) {
-    // Garante que ambas as datas são instâncias válidas de Date
-    if (isNaN(dataInicio) || isNaN(dataFim)) {
-        console.log(dataInicio)
-        console.log(dataFim)
-        return 'Datas inválidas';
+// Função para converter milissegundos para uma data em string
+function millisecondsToDateAsString(milliseconds) {
+    console.log(milliseconds); 
+    console.log('Convertendo ' + milliseconds + ' para dateString');
+    if(milliseconds == undefined){
+        console.log(`resultado n/a`);
+        return 'n/a'
     }
 
-    // Calcula a diferença em milissegundos
-    var diferencaEmMilissegundos = dataFim - dataInicio;
+    const convertedDate = new Date(milliseconds);
 
-    // Calcula a diferença em segundos, minutos, horas, dias, etc.
-    var diferencaEmSegundos = diferencaEmMilissegundos / 1000;
-    var diferencaEmMinutos = diferencaEmSegundos / 60;
-    var diferencaEmHoras = diferencaEmMinutos / 60;
-    var diferencaEmDias = diferencaEmHoras / 24;
+    const day = convertedDate.getDate();
+    const month = convertedDate.getMonth() + 1; // Os meses começam do zero
+    const year = convertedDate.getFullYear();
+    const hours = convertedDate.getHours();
+    const minutes = convertedDate.getMinutes();
 
-    return {
-        milissegundos: diferencaEmMilissegundos,
-        segundos: diferencaEmSegundos,
-        minutos: diferencaEmMinutos,
-        horas: diferencaEmHoras,
-        dias: diferencaEmDias
-    };
+    // Adicionando zeros à esquerda se necessário
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    const formattedHours = hours < 10 ? `0${hours}` : hours;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+    // Montando a string no formato desejado
+    const dateString = `${formattedDay}/${formattedMonth}/${year} ${formattedHours}:${formattedMinutes}`;
+    console.log(`resultado: ${dateString}`);
+    return dateString;
 }
 
+function dateDifference(date1, date2) {
+     const diffInMilliseconds = Math.abs(date2 - date1);
+    const diffInHours = diffInMilliseconds / (1000 * 60 * 60);
+    return diffInHours;
+}
+
+function getTime(){
+    const date = new Date();
+    return date.getTime();
+}
