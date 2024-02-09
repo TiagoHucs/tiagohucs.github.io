@@ -31,7 +31,8 @@ function update(object){
 
 function exclude(idProcurado) {
     const array = this.findAll();
-    const newArray = array.filter(objeto => objeto.id !== idProcurado);
+    const newArray = array.filter(objeto => objeto.id != idProcurado);
+    const objectToExclude = array.filter(objeto => objeto.id == idProcurado);
     localStorage.setItem(this.objectName, JSON.stringify(newArray));
 
 };

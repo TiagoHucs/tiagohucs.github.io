@@ -1,17 +1,21 @@
 function loadList() {
-    console.log('carregando lista');
     var medicationList = findAll();
     letHtmlStr = '';
 
-    console.log('Carregando medicação: ')
     if(medicationList.length > 0){
      
         medicationList.forEach(medication => {
-            console.log(medication)
             letHtmlStr += 
-            `<div class="card bg-${getNeedToTake(medication) ? 'warning' : 'success'} text-white" onclick="takePill('${medication.id}')">
-                <div class="card-body">${medication.name}<br>
-                <i>Última dose: ${millisecondsToDateAsString(medication.takeDate)}</i>
+            `<div class="card bg-${getNeedToTake(medication) ? 'warning' : 'success'} text-white">
+                <div class="card-body">
+                <b>Nome: ${medication.name}</b><br>
+                A cada ${medication.intervalHours} horas<br>
+                <i>Última dose: ${millisecondsToDateAsString(medication.takeDate)}</i><br>
+                <i>Próxima dose: ${millisecondsToDateAsString(medication.nextTakeDate)}</i>
+                </div>
+                <div class="card-footer">
+                    <div class="btn btn-danger float-end" onclick="exclude('${medication.id}')">Excluir</div>
+                    <div class="btn btn-primary float-end" onclick="takePill('${medication.id}')">Tomar</div>
                 </div>
             </div>`;
         });
@@ -31,24 +35,36 @@ function takePill(id) {
     if (confirm('Confirma que tomou ' + id + '?') == true) {
         let medication = findOne(id);
         medication.takeDate = getTime();
+        medication.nextTakeDate = getTimeWithAddHours(medication.takeDate,medication.intervalHours);
         update(medication);
         this.loadList();
     }
 }
 
-function getNeedToTake(medication){
-    console.log('Precisa tomar: '+ medication.name + '?');
-    console.log(medication);
+function deletePill(id) {
+    exclude(id);
+    this.loadList();
+}
 
+function getNeedToTake(medication){
     if(medication.takeDate == undefined){
         return true;
     }
 
     const diffInHours = dateDifference(medication.takeDate, getTime());
-    console.log(diffInHours);
     
     if(diffInHours > medication.intervalHours){
         return true;
     }
     return false;
+}
+
+function getNextTake(medication){
+
+    if(medication.takeDate == undefined){
+        return getTime();
+    }
+    
+    const diffInHours = dateDifference(medication.takeDate, getTime());
+    return diffInHours;
 }

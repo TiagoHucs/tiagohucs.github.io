@@ -9,10 +9,7 @@ function dateToMilliseconds(date) {
 
 // Função para converter milissegundos para uma data em string
 function millisecondsToDateAsString(milliseconds) {
-    console.log(milliseconds); 
-    console.log('Convertendo ' + milliseconds + ' para dateString');
     if(milliseconds == undefined){
-        console.log(`resultado n/a`);
         return 'n/a'
     }
 
@@ -32,7 +29,6 @@ function millisecondsToDateAsString(milliseconds) {
 
     // Montando a string no formato desejado
     const dateString = `${formattedDay}/${formattedMonth}/${year} ${formattedHours}:${formattedMinutes}`;
-    console.log(`resultado: ${dateString}`);
     return dateString;
 }
 
@@ -45,4 +41,12 @@ function dateDifference(date1, date2) {
 function getTime(){
     const date = new Date();
     return date.getTime();
+}
+
+
+function getTimeWithAddHours(time,hours) {
+    const date = new Date();
+    const millisecondsOffset = hours * 60 * 60 * 1000; // Convertendo horas para milissegundos
+    const newDate = new Date(time + millisecondsOffset);
+    return newDate;
 }
