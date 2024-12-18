@@ -1,0 +1,9 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+    color: rgb(188, 188, 188);
+}
+
+.green{
+    color: chartreuse;
+}
