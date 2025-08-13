@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja</title>
+    <!-- Incluindo o CSS do Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">PH-velas</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="cadastro_materiais.html">Materiais</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cadastro_produtos.html">produtos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="container mt-5 background">
+      <h1>Cadastro de Materiais</h1>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h6>Novo material</h6>
+              <hr>
+
+              <form id="materiaisForm">
+                <div class="mb-3 mt-3">
+                  <label for="nome">Nome:</label>
+                  <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="preco_custo">Preço Custo (R$):</label>
+                  <div class="input-group">
+                    <input type="number" step="0.01" min="0" class="form-control" id="preco_custo" name="preco_custo" required>
+                    <select class="btn btn-dark form-control" id="unidade_medida" name="unidade_medida" required>
+                      <option value="Kilo">Kilo</option>
+                      <option value="Unidade">Unidade</option>
+                      <option value="Litro">Litro</option>
+                      <option value="Metro">Metro</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-dark">Cadastrar</button>
+                  </div>
+                </div>
+              </form>
+  
+            </div>
+          </div>
+
+        </div>
+        <div class="col">
+
+          <div class="card">
+            <div class="card-body">
+            
+              <h6>Conversor de Peso e Preço</h6>
+              <hr>
+
+              <label for="gramWeight">Peso em Gramas (g):</label>
+              <input type="number" id="gramWeight" placeholder="Digite o peso em gramas" class="form-control" oninput="convertToKilos()">
+              
+              <label for="gramPrice">Preço para o peso acima (BRL):</label>
+              <input type="number" id="gramPrice" placeholder="Digite o preço para o peso" class="form-control" oninput="convertToKilos()">
+              
+              <label for="kiloPrice">Preço por Quilograma (BRL/kg):</label>
+              <input type="number" id="kiloPrice" placeholder="Preço por quilograma" class="form-control" disabled>
+              
+              <script>
+                  function convertToKilos() {
+                      const grams = parseFloat(document.getElementById("gramWeight").value);
+                      const priceForWeight = parseFloat(document.getElementById("gramPrice").value);
+                      const kilos = grams / 1000;
+                      
+                      const pricePerKilo = priceForWeight / kilos;
+          
+                      document.getElementById("kiloPrice").value = isNaN(pricePerKilo) ? "" : pricePerKilo.toFixed(2);
+                  }
+              </script>
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row mt-5">
+        <div class="col-md-12">
+          <table class="table table-striped ">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Preço Custo (R$)</th>
+                <th>Unidade de Medida</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="materiaisList">
+              <!-- A lista de materiais cadastrados será exibida aqui -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+     
+    </div>
+
+    <!-- Incluindo os scripts do Bootstrap e do jQuery (necessário para algumas funcionalidades do Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="cadastro_materiais.js"></script>
+    <script src="Repository.js"></script>
+    <script src="Util.js"></script>
+
+  </body>
+</html>

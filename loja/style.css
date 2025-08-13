@@ -1,0 +1,17 @@
+body {
+    background-image: url("ph_back.jpeg");
+    background-size: 200px 150px;
+    /* Largura x Altura */
+}
+
+label{
+    margin-top: 10px;
+}
+
+.card {
+    height: 100%;
+}
+
+.btn {
+    margin: 5px;
+}
