@@ -5,70 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso Java - Aventura Espacial | Parte 1: Cadete</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0b0c1a;
-            color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1,
-        h2,
-        h3 {
-            color: #ffcc00;
-        }
-
-        pre {
-            background-color: #1a1a2e;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td,
-        th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #1f1f3e;
-        }
-
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .exercise {
-            background-color: #1f1f3e;
-            padding: 15px;
-            border-left: 5px solid #ffcc00;
-            border-radius: 5px;
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            /* permite quebrar linha */
-            margin: -8px;
-            /* opcional, para ajustar espaçamento */
-        }
-
-        .col {
-            flex: 1;
-            /* ocupa o mesmo espaço que as outras colunas */
-            padding: 8px;
-        }
-    </style>
+    <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -76,93 +13,137 @@
     <h1>Curso Java – Aventura Espacial (<span title="prova de conceito">POC</span>)</h1>
     <h2>Parte 1: Cadete</h2>
 
-    <div class="section">
-        <h3>Objetivo do Treinamento</h3>
-        <p>Aprender os conceitos básicos de Java, incluindo <strong>variáveis</strong>, <strong>tipos de dados</strong>
-            e como armazenar informações para controlar sistemas da nave.</p>
-    </div>
+    <h2>Tipos Primitivos</h2>
 
     <div class="section">
-        <h3>1. Conceitos Básicos</h3>
-        <p><strong>Variáveis:</strong> espaços de memória para armazenar dados.</p>
-        <pre>
-int idade;           // variável inteira
-double combustivel;  // variável decimal
-String nome;         // variável de texto
-boolean sistemaAtivo; // verdadeiro/falso
-        </pre>
-        <p><strong>Tipos de Dados Comuns:</strong></p>
+        <h3>Objetivo da Aula</h3>
         <ul>
-            <li><code>int</code> – números inteiros (ex.: 10, 100)</li>
-            <li><code>double</code> – números com casas decimais (ex.: 3.14, 9.81)</li>
-            <li><code>String</code> – textos (ex.: "Foguete", "Cadete")</li>
-            <li><code>boolean</code> – verdadeiro/falso (ex.: true, false)</li>
+            <li>Entender o que são tipos primitivos no Java.</li>
+            <li>Aprender quais são, seus tamanhos, intervalos de valores e usos mais comuns.</li>
+            <li>Diferenciar tipos primitivos de objetos (wrappers).</li>
         </ul>
     </div>
 
     <div class="section">
-        <h3>2. Inicialização e Uso de Variáveis</h3>
-        <pre>
-int nivelCombustivel = 100;        // nível de combustível em %
-double velocidade = 0.0;           // velocidade inicial em km/h
-String nomeNave = "Explorador I";  // nome da nave
-boolean sistemaLigado = true;      // sistema da nave ligado
-
-System.out.println("Nave: " + nomeNave);
-System.out.println("Combustível: " + nivelCombustivel + "%");
-System.out.println("Velocidade: " + velocidade + " km/h");
-System.out.println("Sistema ligado? " + sistemaLigado);
-        </pre>
+        <h3>O que são Tipos Primitivos?</h3>
+        <p>Em Java, os tipos primitivos são os tipos de dados mais básicos fornecidos pela linguagem.</p>
+        <p>Eles não são objetos, ou seja, são armazenados de forma simples na memória e usados para operações diretas.
+        </p>
     </div>
 
-    <h3>3. Tipos primitivos</h3>
+    <h3>Quais são</h3>
     <table class="section">
         <tr>
             <th>Tipo</th>
             <th>Tamanho</th>
             <th>Valores possíveis</th>
+            <th>exemplo de uso</th>
         </tr>
         <tr>
             <td>byte</td>
             <td>8 bits</td>
             <td>-128 a 127</td>
+            <td>byte idade = 25;</td>
         </tr>
         <tr>
             <td>short</td>
             <td>16 bits</td>
             <td>-32.768 a 32.767</td>
+            <td>short ano = 2025;</td>
         </tr>
         <tr>
             <td>int</td>
             <td>32 bits</td>
             <td>-2.147.483.648 a 2.147.483.647</td>
+            <td>int populacao = 2000000000;</td>
         </tr>
         <tr>
             <td>long</td>
             <td>64 bits</td>
             <td>-9.223.372.036.854.775.808 a 9.223.372.036.854.775.807</td>
+            <td>long estrelas = 9.223.372.036.854.775.807;</td>
         </tr>
         <tr>
             <td>float</td>
             <td>32 bits</td>
             <td>~ ±3,40282347E+38 (≈ 7 dígitos de precisão)</td>
+            <td>float pi = 3.14f;</td>
         </tr>
         <tr>
             <td>double</td>
             <td>64 bits</td>
             <td>~ ±1,7976931348623157E+308 (≈ 15 dígitos de precisão)</td>
+            <td>double preco = 199.99;</td>
         </tr>
         <tr>
             <td>char</td>
             <td>16 bits (Unicode)</td>
-            <td>'\u0000' a '\uffff' (0 a 65.535)</td>
+            <td>Um único caractere Unicode</td>
+            <td>char letra = 'A';</td>
         </tr>
         <tr>
             <td>boolean</td>
             <td>1 bit*</td>
             <td>true ou false</td>
+            <td>boolean ligado = true;</td>
         </tr>
     </table>
+
+    <div class="section">
+        <h3>2. Inicialização e Uso de Variáveis</h3>
+
+        tipo nomedavariavel = valor
+    </div>
+
+
+    <div class="section exercise">
+        <h3>Exercício de Tipos de Dados com Valores Específicos</h3>
+        <p>Armazene os seguintes valores nas variáveis correspondentes:</p>
+        <ul>
+            <li><code>byte</code> → 120</li>
+            <li><code>short</code> → 30.000</li>
+            <li><code>int</code> → 2.000.000</li>
+            <li><code>long</code> → 5.000.000.000</li>
+            <li><code>float</code> → 3.14159</li>
+            <li><code>double</code> → 2.718281828459045</li>
+            <li><code>char</code> → 'Z'</li>
+            <li><code>boolean</code> → true</li>
+        </ul>
+        <p>Depois, imprima cada variável no console usando <code>System.out.println</code>.</p>
+
+        <button onclick="document.getElementById('resposta').style.display='block'">Ver Resposta</button>
+        <div id="resposta" style="display:none;">
+            <pre>
+  // Inteiros
+        byte idade = 25;
+        short ano = 2025;
+        int populacao = 210000000;
+        long estrelas = 9999999999L;
+
+        // Reais (decimais)
+        float pi = 3.14f;
+        double preco = 199.99;
+
+        // Caracteres
+        char letra = 'A';
+        char simbolo = '#';
+
+        // Booleanos
+        boolean ligado = true;
+        boolean maiorDeIdade = false;
+
+        // Exibindo valores
+        System.out.println("Idade: " + idade);
+        System.out.println("Ano: " + ano);
+        System.out.println("População: " + populacao);
+        System.out.println("Estrelas: " + estrelas);
+        System.out.println("PI: " + pi);
+        System.out.println("Preço: " + preco);
+        System.out.println("Letra: " + letra);
+        System.out.println("Ligado? " + ligado);
+        </pre>
+        </div>
+    </div>
 
     <h3>4. Classes wrapper</h3>
     <table class="section">
@@ -219,7 +200,7 @@ System.out.println("Sistema ligado? " + sistemaLigado);
 
     <h3>5. Comparativo</h3>
     <div class="row">
-                <div class="col">
+        <div class="col">
             <table class="section">
                 <tr>
                     <th>Característica</th>
@@ -259,12 +240,6 @@ System.out.println("Sistema ligado? " + sistemaLigado);
 
     </div>
 
-
-    <div class="section exercise">
-        <h3>Exercício de Treinamento</h3>
-        <p>Crie suas próprias variáveis para <strong>combustível, oxigênio e tripulação</strong>, inicialize com valores
-            reais ou fictícios e imprima todas as informações no console usando <code>System.out.println</code>.</p>
-    </div>
 
 </body>
 
