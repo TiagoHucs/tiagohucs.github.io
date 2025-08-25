@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Java - Aventura Espacial | Parte 1: Cadete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0b0c1a;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #ffcc00;
+        }
+
+        pre {
+            background-color: #1a1a2e;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #1f1f3e;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .exercise {
+            background-color: #1f1f3e;
+            padding: 15px;
+            border-left: 5px solid #ffcc00;
+            border-radius: 5px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            /* permite quebrar linha */
+            margin: -8px;
+            /* opcional, para ajustar espaçamento */
+        }
+
+        .col {
+            flex: 1;
+            /* ocupa o mesmo espaço que as outras colunas */
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Curso Java – Aventura Espacial (<span title="prova de conceito">POC</span>)</h1>
+    <h2>Parte 1: Cadete</h2>
+
+    <div class="section">
+        <h3>Objetivo do Treinamento</h3>
+        <p>Aprender os conceitos básicos de Java, incluindo <strong>variáveis</strong>, <strong>tipos de dados</strong>
+            e como armazenar informações para controlar sistemas da nave.</p>
+    </div>
+
+    <div class="section">
+        <h3>1. Conceitos Básicos</h3>
+        <p><strong>Variáveis:</strong> espaços de memória para armazenar dados.</p>
+        <pre>
+int idade;           // variável inteira
+double combustivel;  // variável decimal
+String nome;         // variável de texto
+boolean sistemaAtivo; // verdadeiro/falso
+        </pre>
+        <p><strong>Tipos de Dados Comuns:</strong></p>
+        <ul>
+            <li><code>int</code> – números inteiros (ex.: 10, 100)</li>
+            <li><code>double</code> – números com casas decimais (ex.: 3.14, 9.81)</li>
+            <li><code>String</code> – textos (ex.: "Foguete", "Cadete")</li>
+            <li><code>boolean</code> – verdadeiro/falso (ex.: true, false)</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>2. Inicialização e Uso de Variáveis</h3>
+        <pre>
+int nivelCombustivel = 100;        // nível de combustível em %
+double velocidade = 0.0;           // velocidade inicial em km/h
+String nomeNave = "Explorador I";  // nome da nave
+boolean sistemaLigado = true;      // sistema da nave ligado
+
+System.out.println("Nave: " + nomeNave);
+System.out.println("Combustível: " + nivelCombustivel + "%");
+System.out.println("Velocidade: " + velocidade + " km/h");
+System.out.println("Sistema ligado? " + sistemaLigado);
+        </pre>
+    </div>
+
+    <h3>3. Tipos primitivos</h3>
+    <table class="section">
+        <tr>
+            <th>Tipo</th>
+            <th>Tamanho</th>
+            <th>Valores possíveis</th>
+        </tr>
+        <tr>
+            <td>byte</td>
+            <td>8 bits</td>
+            <td>-128 a 127</td>
+        </tr>
+        <tr>
+            <td>short</td>
+            <td>16 bits</td>
+            <td>-32.768 a 32.767</td>
+        </tr>
+        <tr>
+            <td>int</td>
+            <td>32 bits</td>
+            <td>-2.147.483.648 a 2.147.483.647</td>
+        </tr>
+        <tr>
+            <td>long</td>
+            <td>64 bits</td>
+            <td>-9.223.372.036.854.775.808 a 9.223.372.036.854.775.807</td>
+        </tr>
+        <tr>
+            <td>float</td>
+            <td>32 bits</td>
+            <td>~ ±3,40282347E+38 (≈ 7 dígitos de precisão)</td>
+        </tr>
+        <tr>
+            <td>double</td>
+            <td>64 bits</td>
+            <td>~ ±1,7976931348623157E+308 (≈ 15 dígitos de precisão)</td>
+        </tr>
+        <tr>
+            <td>char</td>
+            <td>16 bits (Unicode)</td>
+            <td>'\u0000' a '\uffff' (0 a 65.535)</td>
+        </tr>
+        <tr>
+            <td>boolean</td>
+            <td>1 bit*</td>
+            <td>true ou false</td>
+        </tr>
+    </table>
+
+    <h3>4. Classes wrapper</h3>
+    <table class="section">
+        <tr>
+            <th>Primitivo</th>
+            <th>Classe Wrapper</th>
+            <th>Descrição</th>
+        </tr>
+        <tr>
+            <td>byte</td>
+            <td>Byte</td>
+            <td>Representa um valor inteiro de 8 bits (-128 a 127)</td>
+        </tr>
+        <tr>
+            <td>short</td>
+            <td>Short</td>
+            <td>Representa um valor inteiro de 16 bits (-32.768 a 32.767)</td>
+        </tr>
+        <tr>
+            <td>int</td>
+            <td>Integer</td>
+            <td>Representa um valor inteiro de 32 bits</td>
+        </tr>
+        <tr>
+            <td>long</td>
+            <td>Long</td>
+            <td>Representa um valor inteiro de 64 bits</td>
+        </tr>
+        <tr>
+            <td>float</td>
+            <td>Float</td>
+            <td>Representa um número de ponto flutuante de 32 bits (~7 dígitos de precisão)</td>
+        </tr>
+        <tr>
+            <td>double</td>
+            <td>Double</td>
+            <td>Representa um número de ponto flutuante de 64 bits (~15 dígitos de precisão)</td>
+        </tr>
+        <tr>
+            <td>char</td>
+            <td>Character</td>
+            <td>Representa um caractere Unicode de 16 bits</td>
+        </tr>
+        <tr>
+            <td>boolean</td>
+            <td>Boolean</td>
+            <td>Representa um valor lógico: true ou false</td>
+        </tr>
+    </table>
+
+    <p><em>Obs: o Java possui 8 classes wrapper principais, uma para cada tipo primitivo.</em></p>
+
+
+
+    <h3>5. Comparativo</h3>
+    <div class="row">
+                <div class="col">
+            <table class="section">
+                <tr>
+                    <th>Característica</th>
+                    <th>Primitivo</th>
+                    <th>Objeto (classe wrapper)</th>
+                </tr>
+                <tr>
+                    <td>Pode ser null?</td>
+                    <td>❌ Não</td>
+                    <td>✅ Sim</td>
+                </tr>
+                <tr>
+                    <td>Uso em Collections</td>
+                    <td>❌ Não</td>
+                    <td>✅ Sim</td>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td>⚡ Mais rápido </td>
+                    <td>🐢 Mais lento</td>
+                </tr>
+                <tr>
+                    <td>Métodos extras</td>
+                    <td>❌ Não</td>
+                    <td>✅ Sim</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col">
+            <p>Em resumo:</p>
+            <p>Primitivo (int, double, etc.) →
+                use quando precisar apenas de cálculo ou desempenho, sem necessidade de objetos.</p>
+
+            <p>Wrapper (Integer, Double, etc.) → use quando precisar de objetos, permitir null ou
+                usar em Collections (ArrayList, HashMap, etc.).</p>
+        </div>
+
+    </div>
+
+
+    <div class="section exercise">
+        <h3>Exercício de Treinamento</h3>
+        <p>Crie suas próprias variáveis para <strong>combustível, oxigênio e tripulação</strong>, inicialize com valores
+            reais ou fictícios e imprima todas as informações no console usando <code>System.out.println</code>.</p>
+    </div>
+
+</body>
+
+</html>
