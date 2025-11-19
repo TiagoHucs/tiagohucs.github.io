@@ -42,7 +42,7 @@
       <hr>
 
       <div class="row">
-        <div class="col">
+        <div class="col-sm-6">
 
           <div class="card">
             <div class="card-body">
@@ -66,17 +66,17 @@
            </div>
 
         </div>
-        <div class="col">
+        <div id="conversorUnidade" class="col-sm-6">
           <div class="card">
             <div class="card-body">
               <h6>Conversor de unidade</h6>
               <hr>
 
-              <label for="gramInput">Gramas / Mililitros :</label>
+              <label for="gramInput" id="gramInputLabel">Gramas / Mililitros :</label>
               <input class="form-control" type="number" id="gramInput" placeholder="Digite" oninput="convertToKilos()">
               
-              <label for="kiloInput">Quilogramas / Litros :</label>
-              <input class="form-control" type="number" id="kiloInput" placeholder="Digite" oninput="convertToGrams()"><br>
+              <label for="kiloInput" id="kiloInputLabel">Quilogramas / Litros :</label>
+              <input class="form-control" type="number" id="kiloInput" placeholder="Digite" disabled><br>
              
               <script>
                   function convertToGrams() {

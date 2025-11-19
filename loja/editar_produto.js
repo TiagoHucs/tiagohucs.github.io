@@ -65,6 +65,23 @@ function selecionarOpcao() {
     //setando unidade de medida
     showMedida.value = materialEscohido.unidadeMedida;
 
+    setConversorTitles(materialEscohido.unidadeMedida);
+
+}
+
+function setConversorTitles(unidadeMedida) {
+    
+    if ('Kilo' == unidadeMedida){
+        document.getElementById('gramInputLabel').innerText = 'Gramas';
+        document.getElementById('kiloInputLabel').innerText = 'Quilogramas';
+        document.getElementById("conversorUnidade").hidden = false;
+    } else if ('Litro' == unidadeMedida){
+        document.getElementById('gramInputLabel').innerText = 'Mililitros (Ml)';
+        document.getElementById('kiloInputLabel').innerText = 'Litros';
+        document.getElementById("conversorUnidade").hidden = false;
+    } else {
+        document.getElementById("conversorUnidade").hidden = true;
+    }
 }
 
 function addMaterial(){
