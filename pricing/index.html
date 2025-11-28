@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Gestão Simples - Itens & Produtos (localStorage)</title>
+    <style>
+        :root {
+            font-family: system-ui, Arial, Helvetica, sans-serif
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #4d5a8c;
+            color: #1f2937
+        }
+
+        header {
+            background: #111827;
+            color: #fff;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        header h1 {
+            font-size: 16px;
+            margin: 0
+        }
+
+        nav {
+            display: flex;
+            gap: 8px
+        }
+
+        nav button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer
+        }
+
+        main {
+            padding: 16px
+        }
+
+        .page {
+            display: none
+        }
+
+        .page.active {
+            display: block
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+            padding: 12px;
+            margin-bottom: 12px
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin: 6px 0 3px
+        }
+
+        input[type=text],
+        input[type=number],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px
+        }
+
+        .row {
+            display: flex;
+            gap: 8px
+        }
+
+        .row>* {
+            flex: 1
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px
+        }
+
+        th,
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #eef2f7;
+            text-align: left
+        }
+
+        .muted {
+            color: #6b7280;
+            font-size: 13px
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 0;
+            cursor: pointer
+        }
+
+        .btn.primary {
+            background: #2563eb;
+            color: #fff
+        }
+
+        .btn.ghost {
+            background: transparent;
+            border: 1px solid #d1d5db
+        }
+
+        .small {
+            padding: 6px 8px;
+            font-size: 13px
+        }
+
+        .components-list {
+            margin-top: 8px
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .warn {
+            color: #b45309
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Gestão Simples — Itens & Produtos</h1>
+        <nav>
+            <button data-nav="home">Home</button>
+            <button data-nav="items-list">Listar Itens</button>
+            <button data-nav="item-create">Cadastrar Item</button>
+            <button data-nav="products-list">Listar Produtos</button>
+            <button data-nav="product-create">Cadastrar Produto</button>
+        </nav>
+    </header>
+    <main>
+        <section id="home" class="page active card">
+            <div class="flex-between">
+                <div>
+                    <strong>Visão rápida</strong>
+                    <div class="muted">Cadastre itens (matéria-prima) e produtos (composição). Dados salvos no
+                        localStorage do navegador.</div>
+                </div>
+                <div>
+                    <button id="btn-to-item-create" class="btn primary small">Novo item</button>
+                    <button id="btn-to-product-create" class="btn ghost small">Novo produto</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ITENS: LISTA -->
+        <section id="items-list" class="page card">
+            <div class="flex-between">
+                <h3>Itens (matéria-prima)</h3>
+                <div>
+                    <button data-nav="item-create" class="btn primary small">Cadastrar item</button>
+                </div>
+            </div>
+
+            <table id="items-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Preço/base</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <!-- ITENS: CADASTRO -->
+        <section id="item-create" class="page card">
+            <div class="flex-between">
+                <h3>Cadastrar Item</h3>
+                <div><button data-nav="items-list" class="btn ghost small">Voltar à lista</button></div>
+            </div>
+            <div style="margin-top:10px">
+                <label>Nome</label>
+                <input id="item-name" type="text" />
+                <div class="row">
+                    <div>
+                        <label>Quantidade</label>
+                        <input id="item-qty" type="number" step="any" min="0" />
+                    </div>
+                    <div>
+                        <label>Unidade</label>
+                        <select id="item-unit">
+                            <option value="mL">mL</option>
+                            <option value="L">L</option>
+                            <option value="g">g</option>
+                            <option value="kg">kg</option>
+                            <option value="un">un</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Preço (R$)</label>
+                        <input id="item-price" type="number" step="any" min="0" />
+                    </div>
+                </div>
+                <div style="margin-top:8px">
+                    <button id="save-item" class="btn primary">Salvar</button>
+                    <button data-nav="items-list" class="btn ghost">Cancelar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS: LISTA -->
+        <section id="products-list" class="page card">
+            <div class="flex-between">
+                <h3>Produtos</h3>
+                <div>
+                    <button data-nav="product-create" class="btn primary small">Cadastrar produto</button>
+                </div>
+            </div>
+
+            <table id="products-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Rendimento</th>
+                        <th>Custo (calc)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <!-- PRODUCTS: CADASTRO/EDICAO -->
+        <section id="product-create" class="page card">
+            <div class="flex-between">
+                <h3>Cadastrar / Editar Produto</h3>
+                <div><button data-nav="products-list" class="btn ghost small">Voltar à lista</button></div>
+            </div>
+
+            <div style="margin-top:10px">
+                <label>Nome</label>
+                <input id="product-name" type="text" />
+                <div class="row">
+                    <div>
+                        <label>Rendimento (quantidade)</label>
+                        <input id="product-yield" type="number" step="any" min="0" />
+                    </div>
+                    <div>
+                        <label>Unidade de rendimento</label>
+                        <select id="product-yield-unit">
+                            <option value="mL">mL</option>
+                            <option value="L">L</option>
+                            <option value="g">g</option>
+                            <option value="kg">kg</option>
+                            <option value="un">un</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-top:8px">
+                    <strong>Componentes</strong>
+                    <div class="muted">Adicione itens que compõem o produto.</div>
+                    <div class="components-list card" id="components-area">
+                        <div style="display:flex;gap:8px;align-items:end">
+                            <select id="component-item-select"></select>
+                            <input id="component-qty" type="number" step="any" min="0" placeholder="quantidade" />
+                            <select id="component-unit">
+                                <option value="mL">mL</option>
+                                <option value="L">L</option>
+                                <option value="g">g</option>
+                                <option value="kg">kg</option>
+                                <option value="un">un</option>
+                            </select>
+                            <button id="add-component" class="btn primary small">Adicionar</button>
+                        </div>
+                        <table id="components-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Qtd</th>
+                                    <th>Un</th>
+                                    <th>Custo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="margin-top:8px">
+                    <button id="save-product" class="btn primary">Salvar produto</button>
+                    <button data-nav="products-list" class="btn ghost">Cancelar</button>
+                    <button id="calculate-cost" class="btn small">Calcular custo</button>
+                    <span id="product-cost" class="muted" style="margin-left:8px"></span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // ===== Configs =====
+        const STORAGE_ITEMS_KEY = 'items';
+        const STORAGE_PRODUCTS_KEY = 'products';
+        const UNIT_FACTOR = { mL: 1, L: 1000, g: 1, kg: 1000, un: 1 };
+
+        // ===== Util =====
+        function uid(prefix = 'id') { return prefix + '-' + Math.random().toString(36).slice(2, 9) }
+        function load(key) { try { return JSON.parse(localStorage.getItem(key) || '[]') } catch (e) { return [] } }
+        function save(key, val) { localStorage.setItem(key, JSON.stringify(val)) }
+
+        // ===== Items =====
+        function itemCostPerBase(item) {
+            const factor = UNIT_FACTOR[item.unit] || 1;
+            const totalBase = Number(item.quantity) * factor;
+            if (!totalBase) return 0;
+            return Number(item.price) / totalBase; // price per base unit
+        }
+
+        function renderItemsTable() {
+            const tbody = document.querySelector('#items-table tbody');
+            tbody.innerHTML = '';
+            const items = load(STORAGE_ITEMS_KEY);
+            items.forEach(it => {
+                const tr = document.createElement('tr');
+                const costPerBase = itemCostPerBase(it);
+                tr.innerHTML = `
+          <td>${it.name}</td>
+          <td>${it.quantity} ${it.unit}</td>
+          <td>R$ ${Number(it.price).toFixed(2)}</td>
+          <td>R$ ${costPerBase.toFixed(6)} / base</td>
+          <td>
+            <button class="btn small ghost" data-action="del" data-id="${it.id}">Excluir</button>
+          </td>`;
+                tbody.appendChild(tr);
+            });
+            // repopulate product item selector
+            const sel = document.getElementById('component-item-select');
+            sel.innerHTML = '';
+            items.forEach(it => {
+                const opt = document.createElement('option'); opt.value = it.id; opt.textContent = it.name + ' (' + it.quantity + it.unit + ')';
+                sel.appendChild(opt);
+            });
+        }
+
+        function addItemFromForm() {
+            const name = document.getElementById('item-name').value.trim();
+            const qty = Number(document.getElementById('item-qty').value);
+            const unit = document.getElementById('item-unit').value;
+            const price = Number(document.getElementById('item-price').value);
+            if (!name || !qty || qty <= 0 || price < 0) { alert('Preencha nome, quantidade (>0) e preço'); return }
+            const items = load(STORAGE_ITEMS_KEY);
+            items.push({ id: uid('item'), name, quantity: qty, unit, price });
+            save(STORAGE_ITEMS_KEY, items);
+            navigate('items-list'); renderItemsTable(); renderProductsTable();
+            clearItemForm();
+        }
+
+        function clearItemForm() { document.getElementById('item-name').value = ''; document.getElementById('item-qty').value = ''; document.getElementById('item-price').value = ''; }
+
+        function deleteItem(id) {
+            let items = load(STORAGE_ITEMS_KEY);
+            items = items.filter(i => i.id !== id);
+            save(STORAGE_ITEMS_KEY, items);
+            renderItemsTable(); renderProductsTable();
+        }
+
+        // ===== Products =====
+        function renderProductsTable() {
+            const tbody = document.querySelector('#products-table tbody'); tbody.innerHTML = '';
+            const prods = load(STORAGE_PRODUCTS_KEY);
+            prods.forEach(p => {
+                const tr = document.createElement('tr');
+                const yieldText = p.yield + ' ' + (p.yieldUnit || '');
+                const cost = tryCalcProductCost(p);
+                tr.innerHTML = `
+          <td>${p.name}</td>
+          <td>${yieldText}</td>
+          <td>${cost === null ? '—' : 'R$ ' + cost.toFixed(2)}</td>
+          <td>
+            <button class="btn small" data-action="edit" data-id="${p.id}">Editar</button>
+            <button class="btn small ghost" data-action="del" data-id="${p.id}">Excluir</button>
+          </td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function tryCalcProductCost(product) {
+            try { return calculateProductCost(product); } catch (e) { return null }
+        }
+
+        function calculateProductCost(product) {
+            let total = 0;
+            const items = load(STORAGE_ITEMS_KEY);
+            for (const c of product.components || []) {
+                const item = items.find(i => i.id === c.itemId);
+                if (!item) throw new Error('Item não encontrado');
+                // validate compatible unit types (simple approach: volume vs mass vs un)
+                const typeFrom = unitType(c.unit);
+                const typeItem = unitType(item.unit);
+                if (typeFrom !== typeItem) throw new Error('Unidades incompatíveis');
+                const baseQty = Number(c.qty) * (UNIT_FACTOR[c.unit] || 1);
+                const costPerBase = itemCostPerBase(item);
+                total += baseQty * costPerBase;
+            }
+            return Number(total.toFixed(2));
+        }
+
+        function unitType(u) { if (['mL', 'L'].includes(u)) return 'volume'; if (['g', 'kg'].includes(u)) return 'mass'; return 'unit'; }
+
+        // ===== Product edit helpers =====
+        let editingProduct = null; // object in memory while editing
+
+        function showProductCreateEmpty() {
+            editingProduct = { id: uid('prod'), name: '', yield: 0, yieldUnit: 'mL', components: [] };
+            populateProductFormFor(editingProduct);
+            navigate('product-create');
+        }
+
+        function populateProductFormFor(prod) {
+            document.getElementById('product-name').value = prod.name || '';
+            document.getElementById('product-yield').value = prod.yield || '';
+            document.getElementById('product-yield-unit').value = prod.yieldUnit || 'mL';
+            renderComponentsTable();
+        }
+
+        function renderComponentsTable() {
+            const tbody = document.querySelector('#components-table tbody'); tbody.innerHTML = '';
+            const items = load(STORAGE_ITEMS_KEY);
+            for (const c of editingProduct.components) {
+                const item = items.find(i => i.id === c.itemId) || { name: '(apagado)' };
+                const tr = document.createElement('tr');
+                let costText = '—';
+                try { const cost = calculateProductCost({ components: [c] }); costText = 'R$ ' + cost.toFixed(2); } catch (e) { costText = '—' }
+                tr.innerHTML = `
+          <td>${item.name}</td>
+          <td>${c.qty}</td>
+          <td>${c.unit}</td>
+          <td>${costText}</td>
+          <td><button class="btn small ghost" data-cid="${c._id || ''}" data-action="cmp-del">Remover</button></td>`;
+                tbody.appendChild(tr);
+            }
+        }
+
+        function addComponentFromForm() {
+            const itemId = document.getElementById('component-item-select').value;
+            const qty = Number(document.getElementById('component-qty').value);
+            const unit = document.getElementById('component-unit').value;
+            if (!itemId || !qty || qty <= 0) { alert('Escolha um item e informe quantidade (>0)'); return }
+            // verify compatibility
+            const items = load(STORAGE_ITEMS_KEY);
+            const item = items.find(i => i.id === itemId);
+            if (!item) { alert('Item não encontrado'); return }
+            if (unitType(unit) !== unitType(item.unit)) { alert('Unidades incompatíveis entre o item e o componente'); return }
+            const comp = { _id: uid('cmp'), itemId, qty, unit };
+            editingProduct.components.push(comp);
+            renderComponentsTable();
+            document.getElementById('component-qty').value = '';
+        }
+
+        function saveProductFromForm() {
+            const name = document.getElementById('product-name').value.trim();
+            const yieldQty = Number(document.getElementById('product-yield').value);
+            const yieldUnit = document.getElementById('product-yield-unit').value;
+            if (!name || !yieldQty || yieldQty <= 0) { alert('Nome e rendimento (>0) obrigatórios'); return }
+            editingProduct.name = name; editingProduct.yield = yieldQty; editingProduct.yieldUnit = yieldUnit;
+            // persist
+            const prods = load(STORAGE_PRODUCTS_KEY).filter(p => p.id !== editingProduct.id);
+            prods.push(editingProduct);
+            save(STORAGE_PRODUCTS_KEY, prods);
+            navigate('products-list'); renderProductsTable();
+        }
+
+        function deleteProduct(id) {
+            let prods = load(STORAGE_PRODUCTS_KEY);
+            prods = prods.filter(p => p.id !== id);
+            save(STORAGE_PRODUCTS_KEY, prods);
+            renderProductsTable();
+        }
+
+        function editProduct(id) {
+            const prods = load(STORAGE_PRODUCTS_KEY);
+            const p = prods.find(x => x.id === id);
+            if (!p) return alert('Produto não encontrado');
+            // clone for editing
+            editingProduct = JSON.parse(JSON.stringify(p));
+            populateProductFormFor(editingProduct);
+            navigate('product-create');
+        }
+
+        // ===== Events and wiring =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // nav
+            document.querySelectorAll('nav button').forEach(btn => btn.addEventListener('click', () => navigate(btn.dataset.nav)));
+            document.getElementById('btn-to-item-create').addEventListener('click', () => navigate('item-create'));
+            document.getElementById('btn-to-product-create').addEventListener('click', () => showProductCreateEmpty());
+
+            // items actions
+            document.getElementById('save-item').addEventListener('click', addItemFromForm);
+            document.getElementById('items-table').addEventListener('click', e => { if (e.target.dataset.action === 'del') deleteItem(e.target.dataset.id); });
+
+            // products
+            document.getElementById('add-component').addEventListener('click', addComponentFromForm);
+            document.getElementById('components-table').addEventListener('click', e => { if (e.target.dataset.action === 'cmp-del') { const cid = e.target.dataset.cid; editingProduct.components = editingProduct.components.filter(c => c._id !== cid); renderComponentsTable(); } });
+            document.getElementById('save-product').addEventListener('click', saveProductFromForm);
+            document.getElementById('calculate-cost').addEventListener('click', () => {
+                try { const cost = calculateProductCost(editingProduct); document.getElementById('product-cost').textContent = 'Custo ≈ R$ ' + cost.toFixed(2); } catch (e) { document.getElementById('product-cost').textContent = 'Erro: ' + e.message }
+            });
+
+            // products table actions
+            document.getElementById('products-table').addEventListener('click', e => {
+                const a = e.target.dataset.action; const id = e.target.dataset.id; if (a === 'del') deleteProduct(id); if (a === 'edit') editProduct(id);
+            });
+
+            // back buttons (data-nav)
+            document.querySelectorAll('[data-nav]').forEach(btn => btn.addEventListener('click', () => { const target = btn.dataset.nav; if (target) navigate(target); }));
+
+            // initial render
+            renderItemsTable(); renderProductsTable();
+        });
+
+        function navigate(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const el = document.getElementById(id);
+            if (el) el.classList.add('active');
+        }
+
+    </script>
+</body>
+
+</html>
